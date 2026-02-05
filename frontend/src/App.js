@@ -12,7 +12,16 @@ import TeamSquadModal from './components/TeamSquadModal';
 import SquadSelection from './components/SquadSelection'; // Your component
 import AdminDashboard from './components/AdminDashboard';
 
-const socket = io.connect("https://ipl-auction-backend-shreshth.onrender.com");
+// 1. Define the Backend URL dynamically
+const BACKEND_URL = 
+  process.env.NODE_ENV === "production"
+    ? "https://ipl-auction-backend-shreshth.onrender.com"  // ☁️ Your Render URL (KEEP THIS)
+    : "http://localhost:3001";                    // 🏠 Localhost (for experiments)
+
+// 2. Connect to that URL
+const socket = io.connect(BACKEND_URL);
+
+
 
 // FIXED LOGO LINKS
 const TEAM_LOGOS = {
