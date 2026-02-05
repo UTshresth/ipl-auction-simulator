@@ -362,7 +362,11 @@ io.on('connection', (socket) => {
   });
 
 }); // <--- End of io.on connection block
+// OLD:
+// server.listen(3001, () => {
 
-server.listen(3001, () => {
-  console.log('SERVER RUNNING ON PORT 3001');
+// NEW:
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`SERVER RUNNING ON PORT ${PORT}`);
 });
