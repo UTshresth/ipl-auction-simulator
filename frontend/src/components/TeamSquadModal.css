@@ -1,0 +1,101 @@
+/* CONTAINER */
+.squad-modal-container {
+  background: #111;
+  width: 95%;
+  height: 90vh;
+  border: 1px solid #333;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  color: white;
+  overflow: hidden;
+}
+
+/* HEADER */
+.squad-header {
+  background: #1a1a1a;
+  padding: 15px 25px;
+  border-bottom: 2px solid #d4af37;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left { display: flex; gap: 15px; align-items: center; }
+.header-logo { width: 60px; height: 60px; object-fit: contain; }
+.header-left h2 { margin: 0; font-size: 1.8rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+.header-stats { display: flex; gap: 10px; color: #aaa; font-size: 0.9rem; margin-top: 5px; }
+.header-stats strong { color: #d4af37; }
+.divider { color: #444; }
+
+.header-right { display: flex; align-items: center; gap: 30px; }
+.purse-display { text-align: right; display: flex; flex-direction: column; }
+.purse-display small { color: #888; font-size: 0.7rem; letter-spacing: 1px; }
+.purse-display span { color: #fff; font-size: 1.4rem; font-weight: bold; }
+
+/* GRID LAYOUT */
+.squad-grid-container {
+  flex: 1;
+  padding: 20px;
+  background: #0d0d0d;
+  overflow-y: auto;
+  
+  display: grid;
+  /* Create 6 equal columns (or scrollable if screen is small) */
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 15px;
+  min-width: 1200px; /* Force scroll on small screens */
+}
+
+/* COLUMN STYLES */
+.category-column {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-title {
+  background: #222;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+  border-bottom: 1px solid #333;
+  display: flex; justify-content: space-between; align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.count-badge {
+  background: #333; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;
+}
+
+.player-list {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* PLAYER CARD INSIDE COLUMN */
+.squad-player-card {
+  background: #000;
+  border: 1px solid #333;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.p-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+.p-name { color: #fff; font-weight: 500; }
+.p-price { color: #d4af37; font-size: 0.8rem; }
+
+.p-sub-row { margin-top: 4px; text-align: right; height: 14px; }
+.os-badge { font-size: 0.6rem; background: #222; padding: 1px 4px; border-radius: 2px; color: #aaa; }
+
+.empty-slot {
+  text-align: center; color: #444; font-style: italic; font-size: 0.8rem; margin-top: 20px;
+}

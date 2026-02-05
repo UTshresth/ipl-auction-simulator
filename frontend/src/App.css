@@ -1,0 +1,711 @@
+/* frontend/src/App.css */
+.App-container {
+  background-color: #111;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Login Screen */
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-screen input {
+  padding: 15px;
+  font-size: 1.2rem;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.login-screen button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background: #d4af37;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* --- UPDATED STUDIO LAYOUT (3 Columns: Logs | Stage | Teams) --- */
+/* --- UPDATED STUDIO LAYOUT --- */
+.auction-studio {
+  display: grid;
+  /* CHANGED 1fr TO minmax(0, 1fr) TO PREVENT PAGE SHIFT */
+  grid-template-columns: 300px minmax(0, 1fr) 90px; 
+  grid-template-rows: 60px 1fr 180px; 
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+  overflow: hidden;
+}
+
+/* --- 1. LEFT SIDEBAR: LIVE LOGS (Column 1) --- */
+.live-feed-sidebar {
+  grid-column: 1;
+  grid-row: 2 / 4; 
+  background: rgba(255, 255, 255, 0.05);
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-header {
+  padding: 15px;
+  background: #111;
+  color: #888;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  padding-bottom: 50px; 
+  display: flex;
+  flex-direction: column-reverse; 
+}
+
+/* Log Item Styling */
+.log-item {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-left: 2px solid #555;
+  background: rgba(0,0,0,0.3);
+  color: #ccc;
+  animation: slideIn 0.3s ease;
+}
+
+.log-item.bid { border-color: #007bff; }
+.log-item.sold { border-color: #28a745; background: rgba(40, 167, 69, 0.1); font-weight: bold; color: white;}
+.log-item.unsold { border-color: #dc3545; color: #ff6b6b; }
+
+/* --- 2. MAIN STAGE (Center - Column 2) --- */
+/* UPDATED: Centered Alignment */
+.main-stage {
+  grid-column: 2;
+  grid-row: 2;
+  position: relative;
+  display: flex;
+  justify-content: center; /* CHANGED: Aligns content to the CENTER */
+  align-items: center;
+  padding: 1px;
+  /* Removed padding-left: 50px to ensure perfect centering */
+}
+
+/* Wrapper for Image + Stats + Overlay */
+.content-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; /* Adds nice spacing between Image and Stats */
+}
+
+/* The 30% Image Rule -> INCREASED for Center Stage */
+.stage-hero-image {
+  height: 62vh; /* Taller */
+  width: auto;
+  max-width: 45%; /* Increased from 30% to fill the center better */
+  object-fit: contain;
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.6)); /* Stronger shadow */
+  z-index: 10;
+  transition: transform 0.3s;
+}
+
+/* Floating Stats (Right of Image) */
+.stage-stats-panel {
+  margin-left: 0; /* Handled by gap in container */
+  background: rgba(0,0,0,0.7); /* Slightly darker for contrast */
+  padding: 30px; /* More breathing room */
+  border-radius: 15px;
+  border: 1px solid #444;
+  backdrop-filter: blur(15px);
+  width: 350px; /* Increased width for better proportion */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding: 10px 0; /* More spacing */
+  color: #ddd;
+}
+
+.stat-row span:first-child { color: #888; font-size: 0.9rem; }
+.stat-row span:last-child { font-weight: bold; font-size: 1.2rem; }
+
+/* --- FIXED OVERLAY (Re-Centered) --- */
+/* Since we moved the content to the center, we reset the overlay to 50% */
+
+/* --- 3. BOTTOM DOCK (Column 2) --- */
+.bottom-dock {
+  grid-column: 2;
+  grid-row: 3;
+  background: #0a0a0a;
+  border-top: 1px solid #333;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+/* Next Players Slider */
+.next-players-slider {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  overflow-x: auto;
+  width: 60%; 
+  margin-bottom: 10px;
+}
+
+.mini-card {
+  min-width: 100px;
+  height: 110px;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+.mini-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 5px; }
+.mini-card span { font-size: 0.7rem; color: #aaa; text-align: center; }
+
+/* Controls (Right Side of Bottom Dock) */
+.dock-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 45%;
+  justify-content: flex-end;
+}
+
+.live-price-box {
+  text-align: right;
+}
+.live-price-box h4 { margin: 0; color: #888; font-size: 0.8rem; }
+.live-price-box .price { font-size: 2.0rem; color: #fff; font-weight: 900; }
+
+.action-btn {
+  height: 60px;
+  padding: 0 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.paddle-up { background: linear-gradient(to right, #007bff, #0056b3); color: white; }
+.hammer-down { background: linear-gradient(to right, #dc3545, #bd2130); color: white; }
+.next-player-btn {
+  background: linear-gradient(to right, #ff8c00, #ff4500);
+  color: white;
+  box-shadow: 0 5px 0 #b83600;
+}
+
+/* --- FIXED OVERLAY (Centered on the Image/Box Group) --- */
+.overlay-flash {
+  position: absolute;
+  top: 3.5%; 
+  left: 25.5%; 
+  transform: translate(-50%, -50%) scale(1);
+  background: rgba(40, 167, 69, 0.95);
+  
+  padding: 9px 24px; 
+  font-size: 1.6rem; 
+  
+  font-family: 'Arial Black', sans-serif;
+  font-weight: 900;
+  border: 3px solid white;
+  text-transform: uppercase;
+  z-index: 9999;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  border-radius: 15px;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.overlay-flash.active {
+  animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.overlay-flash.sold {
+  background: #28a745;
+  color: white;
+  border-color: #fff;
+  box-shadow: 0 0 50px rgba(40, 167, 69, 0.8);
+}
+
+.overlay-flash.unsold {
+  background: #dc3545; 
+  border-color: #ffcccc;
+  box-shadow: 0 0 50px rgba(220, 53, 69, 0.8);
+}
+
+@keyframes stampIn {
+  0% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* 2. ROLE TAG */
+.role-badge-large {
+  background-color: #d4af37;
+  color: #000;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- 1. GLOBAL BACKGROUND --- */
+body {
+  background-color: #050505;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.App-container, .landing-container, .lobby-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at 10% 20%, rgb(26, 32, 44) 0%, rgb(10, 10, 10) 90%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- 2. LANDING PAGE --- */
+.landing-container {
+  padding: 4px 5px;
+  justify-content: center;
+}
+
+.main-title {
+  font-size: 3.5rem;
+    margin-top: 1px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 50px;
+  text-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+}
+
+.admin-section {
+  margin-bottom: 40px;
+}
+
+.join-admin-btn {
+  background: transparent;
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.join-admin-btn:hover {
+  background: #d4af37;
+  color: black;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  color: #555;
+  width: 80%;
+  margin: 30px 0;
+}
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #333;
+}
+.divider span {
+  padding: 0 15px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* --- 3. TEAM GRID --- */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.team-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #d4af37;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.team-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+}
+
+.team-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+.disabled-card {
+  opacity: 0.3;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
+.taken-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4757;
+  color: white;
+  font-size: 0.6rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* --- NEW LOBBY DASHBOARD --- */
+.lobby-dashboard {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lobby-header-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+.lobby-stats {
+  text-align: right;
+}
+
+.lobby-stats h2 {
+  font-size: 3rem;
+  margin: 0;
+  color: #28a745;
+}
+
+.lobby-stats p {
+  margin: 0;
+  color: #888;
+}
+
+/* THE GRID */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.admin-slot {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.admin-slot.online {
+  opacity: 1;
+  background: linear-gradient(145deg, #1e3c72, #2a5298);
+  border: 2px solid #00ff88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+  transform: scale(1.05);
+}
+
+.admin-slot img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.admin-slot span {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #555;
+  margin-left: auto;
+}
+
+.online .status-dot {
+  background: #00ff88;
+  box-shadow: 0 0 5px #00ff88;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.mode-btn {
+  background: transparent;
+  border: 1px solid #555;
+  color: #888;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.mode-btn.active {
+  background: white;
+  color: black;
+  border-color: white;
+  font-weight: bold;
+}
+
+.start-btn {
+  background: linear-gradient(90deg, #d4af37, #f3c623);
+  border: none;
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.admin-controls-panel {
+  background: rgba(20, 20, 20, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  display: inline-block;
+  backdrop-filter: blur(10px);
+  text-align: center; 
+}
+
+.admin-controls-panel h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .logo-grid, .connected-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .main-title { font-size: 2rem; }
+}
+
+/* --- NEW: TEAM SIDEBAR (Far Right Column - Column 3) --- */
+.team-sidebar {
+  grid-column: 3;
+  grid-row: 1 / 4; /* Spans Full Height */
+  background: #0f0f0f;
+  border-left: 1px solid #222; /* Border on LEFT */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  overflow-y: auto;
+  gap: 15px;
+  z-index: 100;
+}
+
+/* Sidebar Icons */
+.sidebar-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.sidebar-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.sidebar-icon:hover {
+  background: #252525;
+}
+.sidebar-icon:hover img {
+  opacity: 1;
+}
+
+.sidebar-icon.online img {
+  opacity: 1;
+}
+
+/* "My Team" Highlight */
+.sidebar-icon.my-team {
+  border-color: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  margin-bottom: 20px; 
+}
+
+.my-team-dot {
+  position: absolute;
+  left: -10px; /* Dot to the Left of icon */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4af37;
+  font-size: 8px;
+}
+/* --- CUSTOM SCROLLBAR (Matches Dark Theme) --- */
+.next-players-slider::-webkit-scrollbar {
+  height: 6px; /* Slim horizontal scrollbar */
+}
+
+.next-players-slider::-webkit-scrollbar-track {
+  background: #050505; /* Very dark background (matches dock) */
+  border-radius: 10px;
+}
+
+.next-players-slider::-webkit-scrollbar-thumb {
+  background: #333; /* Subtle dark grey handle */
+  border-radius: 10px;
+  border: 1px solid #111; /* Adds definition */
+}
+
+.next-players-slider::-webkit-scrollbar-thumb:hover {
+  background: #d4af37; /* Turns GOLD on hover for interaction */
+}
+/* --- NEW STYLES FOR PAST PLAYERS --- */
+/* Next Players Slider */
+/* Next Players Slider */
+.next-players-slider {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  overflow-x: auto; /* Enables scroll inside the box */
+  
+  width: 100%; 
+  max-width: 100%; /* ADDED: Forces it to stop expanding the page */
+  box-sizing: border-box;
+  
+  margin-bottom: 10px;
+}
+/* Green Border for Sold */
+.card-sold {
+  border: 1px solid #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3) inset;
+}
+
+/* Red Border for Unsold */
+.card-unsold {
+  border: 1px solid #dc3545;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3) inset;
+}
+
+/* Tiny Badge inside Mini Card */
+.mini-status {
+  font-size: 0.5rem;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-top: 3px;
+  font-weight: bold;
+}
+
+.card-sold .mini-status {
+  background: #28a745;
+  color: white;
+}
+
+.card-unsold .mini-status {
+  background: #dc3545;
+  color: white;
+}

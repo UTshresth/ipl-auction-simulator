@@ -1,0 +1,161 @@
+/* TV BROADCAST STYLE CARD */
+.broadcast-card {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  margin: 20px auto;
+  min-height: 500px;
+}
+
+/* --- LEFT SIDE (IMAGE) --- */
+.broadcast-left {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(to top, #000 0%, transparent 100%), 
+              radial-gradient(circle at center, #222 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 20px;
+  border-right: 1px solid #333;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  z-index: 2;
+  transition: transform 0.5s;
+}
+
+.broadcast-card:hover .hero-image {
+  transform: scale(1.05);
+}
+
+.hero-name {
+  text-align: center;
+  z-index: 3;
+  margin-top: -20px;
+}
+
+.hero-name h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.hero-name h3 {
+  font-size: 1.2rem;
+  color: #d4af37;
+  margin: 5px 0 0 0;
+  font-weight: 400;
+}
+
+.player-role-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #d4af37;
+  color: black;
+  padding: 5px 15px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+/* --- RIGHT SIDE (STATS) --- */
+.broadcast-right {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255,255,255,0.02);
+}
+
+.stats-header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.stats-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+.set-info {
+  color: #555;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.stat-item {
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 3px solid #333;
+}
+
+.stat-item.highlight {
+  background: linear-gradient(45deg, #1e3c72, #2a5298);
+  border-left: 3px solid #d4af37;
+  grid-column: span 2; /* Full width */
+  text-align: center;
+}
+
+.stat-item .label {
+  display: block;
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.stat-item .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.specialism-box {
+  margin-top: 30px;
+  padding: 15px;
+  background: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+  text-align: center;
+  border: 1px dashed #d4af37;
+  border-radius: 8px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .broadcast-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .broadcast-left {
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+}

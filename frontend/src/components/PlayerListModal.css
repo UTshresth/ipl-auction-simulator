@@ -1,0 +1,198 @@
+/* MODAL OVERLAY - FIXED Z-INDEX */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9); /* Darker background */
+  backdrop-filter: blur(8px); /* Stronger blur */
+  z-index: 10000; /* HIGHER than everything else */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* MODAL CONTAINER */
+.modal-container {
+  background: #111;
+  width: 85%;
+  height: 90%;
+  border: 1px solid #333;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.1); /* Slight Gold Glow */
+}
+
+/* HEADER */
+.modal-header {
+  padding: 25px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #151515;
+  border-radius: 15px 15px 0 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #d4af37;
+  letter-spacing: 2px;
+  font-family: 'Arial Black', sans-serif;
+  text-transform: uppercase;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 2.5rem;
+  line-height: 2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.close-btn:hover { color: #dc3545; }
+
+/* --- UPDATED: HORIZONTAL SLIDER LAYOUT --- */
+.modal-grid {
+  flex: 1;
+  padding: 30px;
+  
+  /* Flexbox for Horizontal Row */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent wrapping to next line */
+  gap: 25px;
+  
+  /* Horizontal Scrolling */
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-items: flex-start; /* Align cards to top */
+}
+
+/* CUSTOM SCROLLBAR FOR HORIZONTAL LIST */
+.modal-grid::-webkit-scrollbar { 
+  height: 12px; /* Taller for horizontal drag */
+}
+.modal-grid::-webkit-scrollbar-track { 
+  background: #050505; 
+  border-radius: 10px;
+  margin: 0 20px;
+}
+.modal-grid::-webkit-scrollbar-thumb { 
+  background: #333; 
+  border-radius: 10px; 
+  border: 2px solid #050505;
+}
+.modal-grid::-webkit-scrollbar-thumb:hover { 
+  background: #d4af37; 
+}
+
+/* --- UPDATED: PLAYER CARD (Fixed Width) --- */
+.player-card-item {
+  /* Fixed Dimensions for Horizontal Scroll */
+  min-width: 320px;
+  max-width: 320px;
+  
+  /* Ensure flex item doesn't shrink */
+  flex: 0 0 auto;
+
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.player-card-item:hover {
+  background: #222;
+  transform: translateY(-5px);
+  border-color: #555;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Expanded State Style */
+.player-card-item.expanded {
+  border-color: #d4af37;
+  background: #202020;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.card-top {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.player-card-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #050505;
+  border: 2px solid #333;
+}
+
+.card-info h3 { margin: 0 0 5px 0; color: white; font-size: 1.2rem; }
+.role-tag { 
+  display: inline-block;
+  background: #333;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #ccc; 
+  font-size: 0.75rem; 
+  text-transform: uppercase; 
+  font-weight: bold;
+}
+
+/* STATUS BADGES */
+.status-row { margin-top: 12px; display: flex; gap: 10px; align-items: center; }
+.sold-badge { color: #28a745; font-weight: bold; font-size: 0.9rem; }
+.unsold-badge { color: #dc3545; font-weight: bold; font-size: 0.9rem; }
+.price-tag { color: white; font-weight: bold; font-size: 1.1rem;}
+.base-price { color: #888; font-size: 0.9rem; font-style: italic; }
+
+/* EXPANDED STATS */
+.card-stats {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  
+  /* Changed to 2 Columns to fit better in vertical card */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px;
+  
+  animation: slideDown 0.3s ease;
+}
+
+.stat-box { 
+  text-align: center; 
+  background: rgba(255,255,255,0.03);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.stat-box div:first-child { 
+  font-size: 0.75rem; 
+  color: #888; 
+  margin-bottom: 5px; 
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+}
+.stat-box div:last-child { 
+  font-size: 1.2rem; 
+  color: #d4af37; 
+  font-weight: 800; 
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }

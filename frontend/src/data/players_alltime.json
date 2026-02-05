@@ -1,0 +1,56 @@
+[
+  {
+    "id": "goat_01",
+    "name": "Chris Gayle (Prime)",
+    "country": "West Indies",
+    "role": "Batter",
+    "specialism": "Universe Boss",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 142,
+      "runs": 4965,
+      "avg": 39.72,
+      "sr": 148.96,
+      "wickets": 18,
+      "economy": 7.9
+    },
+    "set_name": "Icons Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/236.png"
+  },
+  {
+    "id": "goat_02",
+    "name": "Shane Warne (2008)",
+    "country": "Australia",
+    "role": "Bowler",
+    "specialism": "The Magician",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 55,
+      "runs": 198,
+      "avg": 10.0,
+      "sr": 92.5,
+      "wickets": 57,
+      "economy": 7.27
+    },
+    "set_name": "Icons Set 1",
+    "image_url": "https://i.pinimg.com/originals/1e/8c/d7/1e8cd772874136615b3992d9d1078720.png"
+  },
+  {
+    "id": "goat_03",
+    "name": "AB de Villiers (Prime)",
+    "country": "South Africa",
+    "role": "Batter",
+    "specialism": "Mr. 360",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 184,
+      "runs": 5162,
+      "avg": 39.7,
+      "sr": 151.69,
+      "wickets": 0,
+      "economy": 0.0
+    },
+    "set_name": "Icons Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/233.png"
+  }
+]

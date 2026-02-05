@@ -1,0 +1,69 @@
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
+  z-index: 20000;
+  display: flex; justify-content: center; alignItems: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* CONTAINER - Added 'color: #eee' to fix black text issue */
+.rulebook-container {
+  background: #1a1a1a;
+  width: 600px;
+  max-width: 90%;
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+  display: flex; flex-direction: column;
+  color: #eee; /* CRITICAL FIX: Forces text to be light */
+}
+
+/* HEADER */
+.rulebook-header {
+  padding: 20px;
+  background: #111;
+  border-bottom: 1px solid #333;
+  display: flex; justify-content: space-between; alignItems: center;
+}
+
+.rulebook-header h2 { margin: 0; color: #d4af37; font-size: 1.2rem; letter-spacing: 1px; }
+
+.close-btn {
+  background: none; border: none;
+  color: #888; font-size: 2rem; cursor: pointer;
+}
+.close-btn:hover { color: #dc3545; }
+
+/* CONTENT */
+.rulebook-content { 
+  padding: 25px; 
+  font-family: sans-serif; 
+  line-height: 1.6;
+  overflow-y: auto; /* Adds scroll if rules are too long */
+  max-height: 80vh;
+}
+
+.rule-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333; }
+.rule-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+.rule-section h3 { color: #fff; margin-bottom: 10px; font-size: 1rem; text-transform: uppercase; }
+.rule-section ul { margin: 0; padding-left: 20px; }
+.rule-section li { margin-bottom: 5px; color: #ccc; } /* Explicit list color */
+.rule-section strong { color: #fff; }
+
+.tags-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.tags-row span {
+  background: #333; color: #ccc; padding: 4px 10px; 
+  border-radius: 4px; font-size: 0.8rem; border: 1px solid #555;
+}
+
+.warning-box {
+  background: rgba(220, 53, 69, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+.warning-box h3 { color: #dc3545; }

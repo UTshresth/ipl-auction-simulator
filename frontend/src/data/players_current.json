@@ -1,0 +1,211 @@
+[
+  {
+    "id": "curr_01",
+    "name": "Virat Kohli",
+    "country": "India",
+    "role": "Opener",
+    "specialism": "Anchor / Run Machine",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 267,
+      "runs": 8845,
+      "avg": 39.80,
+      "sr": 133.5,
+      "wickets": 0,
+      "economy": 0.0,
+      "hs": "113*"
+    },
+    "set_name": "Marquee Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/2.png"
+  },
+  {
+    "id": "curr_06",
+    "name": "Rohit Sharma",
+    "country": "India",
+    "role": "Opener",
+    "specialism": "Hitman / Captain",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 260,
+      "runs": 6800,
+      "avg": 29.8,
+      "sr": 132.0,
+      "wickets": 15,
+      "economy": 7.9,
+      "hs": "109*"
+    },
+    "set_name": "Marquee Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/6.png"
+  },
+  {
+    "id": "curr_07",
+    "name": "Suryakumar Yadav",
+    "country": "India",
+    "role": "Middle Order",
+    "specialism": "360° Hitter",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 165,
+      "runs": 4450,
+      "avg": 36.5,
+      "sr": 172.0,
+      "wickets": 0,
+      "economy": 0.0,
+      "hs": "103*"
+    },
+    "set_name": "Batters Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/108.png"
+  },
+  {
+    "id": "curr_03",
+    "name": "Heinrich Klaasen",
+    "country": "South Africa",
+    "role": "Wicket Keeper",
+    "specialism": "Spin Destroyer",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 62,
+      "runs": 1950,
+      "avg": 41.2,
+      "sr": 171.5,
+      "wickets": 0,
+      "economy": 0.0,
+      "hs": "104"
+    },
+    "set_name": "Wicket Keepers Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/202.png"
+  },
+  {
+    "id": "curr_08",
+    "name": "Rishabh Pant",
+    "country": "India",
+    "role": "Wicket Keeper",
+    "specialism": "Dynamic Lefty",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 115,
+      "runs": 3550,
+      "avg": 35.8,
+      "sr": 149.5,
+      "wickets": 0,
+      "economy": 0.0,
+      "hs": "128*"
+    },
+    "set_name": "Wicket Keepers Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/2972.png"
+  },
+  {
+    "id": "curr_09",
+    "name": "Hardik Pandya",
+    "country": "India",
+    "role": "All Rounder",
+    "specialism": "Pace All-Rounder",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 140,
+      "runs": 2800,
+      "avg": 30.1,
+      "sr": 146.0,
+      "wickets": 65,
+      "economy": 8.8,
+      "best": "4/17"
+    },
+    "set_name": "All Rounders Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/2740.png"
+  },
+  {
+    "id": "curr_10",
+    "name": "Andre Russell",
+    "country": "West Indies",
+    "role": "All Rounder",
+    "specialism": "Power Hitter / Death Bowler",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 125,
+      "runs": 2500,
+      "avg": 29.5,
+      "sr": 182.0,
+      "wickets": 105,
+      "economy": 9.2,
+      "best": "5/15"
+    },
+    "set_name": "All Rounders Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/177.png"
+  },
+  {
+    "id": "curr_04",
+    "name": "Rashid Khan",
+    "country": "Afghanistan",
+    "role": "Spinner",
+    "specialism": "Mystery Spin",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 145,
+      "runs": 750,
+      "avg": 14.5,
+      "sr": 165.0,
+      "wickets": 165,
+      "economy": 6.85,
+      "best": "4/24"
+    },
+    "set_name": "Spinners Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/218.png"
+  },
+  {
+    "id": "curr_11",
+    "name": "Yuzvendra Chahal",
+    "country": "India",
+    "role": "Spinner",
+    "specialism": "Wicket Taker",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 160,
+      "runs": 85,
+      "avg": 5.2,
+      "sr": 45.0,
+      "wickets": 205,
+      "economy": 7.65,
+      "best": "5/40"
+    },
+    "set_name": "Spinners Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/10.png"
+  },
+  {
+    "id": "curr_05",
+    "name": "Jasprit Bumrah",
+    "country": "India",
+    "role": "Fast Bowler",
+    "specialism": "Yorker King",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 150,
+      "runs": 80,
+      "avg": 6.5,
+      "sr": 0.0,
+      "wickets": 195,
+      "economy": 7.15,
+      "best": "5/10"
+    },
+    "set_name": "Marquee Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/9.png"
+  },
+  {
+    "id": "curr_02",
+    "name": "Pat Cummins",
+    "country": "Australia",
+    "role": "Fast Bowler",
+    "specialism": "Captain / Lower Order Hitter",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 85,
+      "runs": 750,
+      "avg": 21.5,
+      "sr": 154.0,
+      "wickets": 95,
+      "economy": 8.75,
+      "best": "4/34"
+    },
+    "set_name": "Marquee Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/33.png"
+  }
+]
