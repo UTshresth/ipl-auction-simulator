@@ -12,7 +12,7 @@ import TeamSquadModal from './components/TeamSquadModal';
 import SquadSelection from './components/SquadSelection'; // Your component
 import AdminDashboard from './components/AdminDashboard';
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://ipl-auction-backend-shreshth.onrender.com");
 
 // FIXED LOGO LINKS
 const TEAM_LOGOS = {
