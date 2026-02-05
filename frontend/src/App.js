@@ -496,7 +496,7 @@ const triggerStart = () => {
       <div className="landing-container">
         <h1>ROOM: <span style={{color:'#d4af37'}}>{roomId}</span></h1>
         
-        <h1 className="main-title">EES IPL AUCTION 2026</h1>
+        <h1 className="main-title">EES IPL's AUCTION 2026</h1>
         
         <div className="admin-section">
           <button 
