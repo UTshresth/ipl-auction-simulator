@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  // --- 3. REGISTER ROLE (Login) ---
+  // --- // --- 3. REGISTER ROLE (Login) ---
   socket.on('register_role', ({ roomId, role }) => {
     const room = rooms[roomId];
     if (!room) {
@@ -136,7 +136,7 @@ io.on('connection', (socket) => {
         socket.emit("error_message", "⚠️ Auctioneer exists!");
         return;
       }
-      const secretId = generateId(); // Generate Secret for Reconnection
+      const secretId = generateId(); 
       room.adminSocketId = socket.id;
       room.adminSecret = secretId;
 
@@ -148,10 +148,17 @@ io.on('connection', (socket) => {
       socket.emit("role_registered", { secretId, role: "ADMIN" });
       io.to(roomId).emit("update_lobby", room.connectedClients);
     } 
+
     // B. TEAM JOIN
     else {
+      // 🔒 NEW: LOCK THE ROOM IF AUCTION STARTED
+      if (room.isAuctionStarted) {
+         socket.emit("error_message", "⛔ AUCTION STARTED: No new teams allowed!");
+         return;
+      }
+
       if (!room.connectedClients.includes(role)) {
-        const secretId = generateId(); // Generate Secret for Reconnection
+        const secretId = generateId(); 
         room.connectedClients.push(role);
         
         // Initialize team state
@@ -160,7 +167,7 @@ io.on('connection', (socket) => {
                 purse: 1200000000, 
                 squad: [], 
                 isBot: false,
-                secretId: secretId // Store secret
+                secretId: secretId 
             };
         }
         socket.join(roomId);
@@ -170,6 +177,69 @@ io.on('connection', (socket) => {
         socket.emit("error_message", "⚠️ Team is already taken!");
       }
     }
+  });
+
+  // Store the current mode in a variable (default to online)
+let auctionMode = "online"; 
+
+
+
+  // 1. Send current mode to new users
+  socket.emit("mode_update", auctionMode);
+
+  // 2. Admin changes the mode
+  socket.on("toggle_mode", (newMode) => {
+    auctionMode = newMode;
+    io.emit("mode_update", auctionMode); // Tell everyone (to hide/show buttons)
+  });
+
+  // --- 📝 HANDLE MANUAL / OFFLINE SALE (FIXED to match 'history') ---
+  socket.on("admin_sell_manual", ({ roomId, teamName, soldPrice, player }) => {
+    const room = rooms[roomId];
+    if (!room) return;
+
+    console.log(`📝 Manual Sale: ${player.name} -> ${teamName}`);
+
+    // 1. Create Result Object
+    const resultObj = {
+      ...player,
+      status: teamName === "Unsold" ? "UNSOLD" : "SOLD",
+      soldPrice: Number(soldPrice),
+      winner: teamName === "Unsold" ? null : teamName
+    };
+
+    // 2. 💾 SAVE TO HISTORY (Renamed to match rest of code)
+    if (!room.history) room.history = []; // Initialize if missing
+    room.history.unshift(resultObj);      // Save to the main history list
+
+    // 3. 💾 SAVE LOG
+    if (!room.logs) room.logs = [];
+    const logMsg = { 
+      text: teamName === "Unsold" 
+        ? `⚠️: ${player.name} marked UNSOLD`
+        : `🔨: ${player.name} sold to ${teamName} (₹${(soldPrice/10000000).toFixed(2)} Cr)`,
+      type: teamName === "Unsold" ? 'unsold' : 'sold',
+      time: new Date().toLocaleTimeString()
+    };
+    room.logs.unshift(logMsg); 
+
+    // 4. Deduct Money
+    if (teamName !== "Unsold" && room.teams[teamName]) {
+      room.teams[teamName].purse -= Number(soldPrice);
+      // Optional: Update squad list if you use it
+      if(room.teams[teamName].squad) {
+          room.teams[teamName].squad.push(resultObj);
+      }
+    }
+
+    // 5. Broadcast
+    io.to(roomId).emit("player_result", {
+      playerName: player.name,
+      status: resultObj.status,
+      price: resultObj.soldPrice,
+      winner: resultObj.winner,
+      playerData: player 
+    });
   });
 
   // --- 4. REJOIN GAME (Handle Page Refresh) ---

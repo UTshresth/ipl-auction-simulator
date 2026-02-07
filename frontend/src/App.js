@@ -11,7 +11,7 @@ import './App.css';
 import TeamSquadModal from './components/TeamSquadModal';
 import SquadSelection from './components/SquadSelection'; // Your component
 import AdminDashboard from './components/AdminDashboard';
-
+import SquadReview from './components/SquadReview'; // <--- ADD THIS
 // 1. Define the Backend URL dynamically
 const BACKEND_URL = 
   process.env.NODE_ENV === "production"
@@ -42,10 +42,16 @@ function App() {
 
   const [roomId, setRoomId] = useState(""); // <--- NEW
  // <
+
   // --- STATE ---
   // NEW: Slider State
   // NEW: Rulebook State
   // Add this with your other state variables at the top of the App function
+
+  const [auctionMode, setAuctionMode] = useState("online"); // 'online' or 'offline'
+const [showManualModal, setShowManualModal] = useState(false); // For Admin Popup
+const [manualTeam, setManualTeam] = useState(""); // Selected winner in offline mode
+const [manualPrice, setManualPrice] = useState(""); // Price entered manually
 const [auctionPhase, setAuctionPhase] = useState('BIDDING'); 
 const [submittedTeams, setSubmittedTeams] = useState([]);
   const [showRules, setShowRules] = useState(false);
@@ -56,6 +62,7 @@ const [submittedTeams, setSubmittedTeams] = useState([]);
   const [connectedTeams, setConnectedTeams] = useState([]);
   const [adminTaken, setAdminTaken] = useState(false);
   const [round, setRound] = useState(1);
+
   // NEW: Selected Team for Squad View
   const [selectedSquadTeam, setSelectedSquadTeam] = useState(null);
   // NEW: Track Modal State
@@ -193,7 +200,32 @@ const handleSquadSubmit = (selectedPlayers) => {
        
        setView("LOBBY");
     });
+// ... inside useEffect
 
+// 🆕 Listen for Mode Changes
+// 🆕 Listen for Mode Changes (FIXED)
+    socket.on("mode_update", (data) => {
+      console.log("Raw Mode Data:", data); // Debugging log
+
+      // Safety Check: ensure we have a string
+      let modeString = "online"; 
+      
+      if (typeof data === 'string') {
+        modeString = data;
+      } else if (data && data.mode) {
+        // If server sent an object like { roomId: '1234', mode: 'offline' }
+        modeString = data.mode;
+      }
+
+      setAuctionMode(modeString);
+
+      setLogs(prev => [{ 
+        text: `⚠️ MODE CHANGED TO: ${modeString.toUpperCase()}`, 
+        type: 'info', 
+        time: new Date().toLocaleTimeString()
+      }, ...prev]);
+    });
+// ... existing listeners
     // 3. EXISTING GAME LISTENERS
     socket.on("update_lobby", (list) => setConnectedTeams(list));
     socket.on("admin_status", (isTaken) => setAdminTaken(isTaken));
@@ -341,6 +373,7 @@ const handleSquadSubmit = (selectedPlayers) => {
         socket.off("phase_change");          
         socket.off("update_player_list");    
         socket.off("squad_submission_update"); 
+        socket.off("mode_update")
     }
   }, [activeList, playerIndex, currentPlayer, teamName, isAdmin, roomId]);
 
@@ -353,6 +386,8 @@ const handleSquadSubmit = (selectedPlayers) => {
     alert("No Unsold Players available for Round 2."); 
     return; 
   }
+  // ... existing functions
+
 
   const round2List = unsoldPlayers.map(p => ({
     ...p, status: null, soldPrice: 0, winner: null 
@@ -441,6 +476,43 @@ const triggerStart = () => {
     socket.emit("admin_next_player", { roomId });
   };
 
+// 🆕 TOGGLE MODE (Admin Only)
+const toggleMode = () => {
+  const newMode = auctionMode === "online" ? "offline" : "online";
+  // Send roomId so it only affects THIS room
+  socket.emit("toggle_mode", { roomId, mode: newMode });
+};
+
+// 🆕 HANDLE SELL BUTTON CLICK
+// ✅ CORRECT (Empty Input)
+const handleSellClick = () => {
+  if (auctionMode === "online") {
+    sellPlayer(); 
+  } else {
+    setManualTeam(""); 
+    setManualPrice(""); // <--- NOW IT'S EMPTY
+    setShowManualModal(true);
+  }
+};
+const confirmManualSale = () => {
+  if (!manualTeam) return;
+
+  // 👇 THE FIX: Multiply the input by 1 Crore
+  const finalPrice = manualTeam === 'Unsold' 
+     ? 0 
+     : Number(manualPrice) * 10000000; 
+
+  socket.emit("admin_sell_manual", {
+    roomId,
+    teamName: manualTeam,
+    soldPrice: finalPrice, 
+    player: currentPlayer
+  });
+  
+  setShowManualModal(false); 
+  setManualTeam(""); 
+  setManualPrice("");
+};
   // --- RENDER ---
 
   //// --- NEW: ROOM ENTRY SCREEN (Step 1) ---
@@ -630,14 +702,16 @@ const triggerStart = () => {
     else {
       // If team already submitted, show waiting screen
       if (auctionPhase === 'COMPLETED') {
-        return (
-          <div className="game-over">
-            <h1>✅ SQUAD SUBMITTED</h1>
-            <p>Waiting for Auctioneer to verify results...</p>
-          </div>
-        );
-      }
-      // Otherwise, show selection screen
+   // Find the squad specifically submitted by this team
+   const mySubmittedSquad = submittedTeams.find(s => s.teamName === teamName)?.squad || [];
+
+   return (
+     <SquadReview 
+       teamName={teamName} 
+       submittedSquad={mySubmittedSquad} 
+     />
+   );
+}//Otherwise, show selection screen
       return (
         <SquadSelection 
           teamName={teamName}
@@ -716,7 +790,6 @@ const triggerStart = () => {
           boxShadow: '0 5px 10px rgba(0,0,0,0.5)',
           zIndex: 50
         }}>
-        
         {/* LOGO & TITLE SECTION */}
         <div style={{display:'flex', alignItems:'center', gap:'15px'}}>
            {isAdmin ? (
@@ -728,6 +801,21 @@ const triggerStart = () => {
                
                {/* --- NEW: ADMIN CONTROLS --- */}
                <div style={{marginLeft:'30px', display:'flex', gap:'10px'}}>
+                  
+                  {/* 👇 MOVED BUTTON HERE: NOW ONLY VISIBLE TO ADMIN 👇 */}
+                  <button 
+                    onClick={toggleMode}
+                    style={{
+                      background: auctionMode === 'online' ? '#28a745' : '#ffc107', 
+                      color: auctionMode === 'online' ? 'white' : 'black',
+                      border: 'none',
+                      padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem'
+                    }}
+                  >
+                    {auctionMode === 'online' ? "🟢 ONLINE MODE" : "🟠 OFFLINE MODE"}
+                  </button>
+                  {/* 👆 END OF MOVED BUTTON 👆 */}
+
                   <button 
                     onClick={startRound2} 
                     style={{
@@ -750,6 +838,7 @@ const triggerStart = () => {
                   </button>
                </div>
              </div>
+             
            ) : (
              <>
                <img 
@@ -776,7 +865,10 @@ const triggerStart = () => {
            >
              📜 RULES
            </button>
+
         </div>
+
+
 
         {/* PURSE DISPLAY */}
         {!isAdmin && (
@@ -958,9 +1050,11 @@ const triggerStart = () => {
              ))}
              {nextPlayers.length === 0 && <span style={{color:'#444'}}>End of List</span>}
            </div>
-        </div>
-{/* SECTION 3: CONTROLS */}
-        <div className="dock-controls" style={{width: '35%', minWidth: '0'}}>
+        </div>{/* SECTION 3: CONTROLS */}
+     <div className="dock-controls" style={{width: '35%', minWidth: '0', position: 'relative'}}>
+        
+        {/* 1. PRICE BOX (Only visible in ONLINE mode) */}
+        {auctionMode === 'online' && (
            <div className="live-price-box">
              <h4>CURRENT BID</h4>
              <div className="price">₹{(currentBid / 10000000).toFixed(2)} Cr</div>
@@ -968,14 +1062,33 @@ const triggerStart = () => {
                {highestBidder !== "No Bids" ? `HELD BY ${highestBidder}` : "NO BIDS YET"}
              </div>
            </div>
-           
-           {isAdmin ? (
-             isRoundOver ? (
-               <button className="action-btn next-player-btn" onClick={nextPlayer}>NEXT PLAYER &gt;&gt;</button>
-             ) : (
-               <button className="action-btn hammer-down" onClick={sellPlayer}>SELL 🔨</button>
-             )
-           ) : (
+        )}
+
+        {/* 2. BUTTONS (Admin vs User) */}
+        {isAdmin ? (
+          // --- ADMIN VIEW ---
+          isRoundOver ? (
+            <button className="action-btn next-player-btn" onClick={nextPlayer}>NEXT PLAYER &gt;&gt;</button>
+          ) : (
+            <button 
+               className="action-btn hammer-down" 
+               onClick={handleSellClick} 
+            >
+               {auctionMode === 'online' ? "SELL 🔨" : "SELL 📝"}
+            </button>
+          )
+        ) : (
+          // --- USER VIEW ---
+          auctionMode === 'offline' ? (
+             // OFFLINE MESSAGE
+             <div style={{
+               width:'90%', height:'80px', background:'#333', color:'#888', 
+               display:'flex', alignItems:'center', justifyContent:'center', 
+               border:'2px dashed #555', borderRadius:'10px', fontSize:'1.2rem'
+             }}>
+               🚫 BIDDING DISABLED (MANUAL)
+             </div>
+          ) : (
              <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'5px', width:'100%'}}>
                
                {/* LOGIC: Check if I am already the highest bidder */}
@@ -1056,6 +1169,7 @@ const triggerStart = () => {
                  );
                })()}
              </div>
+             )
            )}
         </div>
       </div>
@@ -1102,8 +1216,85 @@ const triggerStart = () => {
           onClose={() => setSelectedSquadTeam(null)}
         />
       )}
+{/* 🆕 COMPACT MANUAL SELL POPUP (Right-Aligned) */}
+      {showManualModal && (
+        <div className="manual-sell-popup">
+          <button className="close-popup-btn" onClick={() => setShowManualModal(false)}>✖</button>
+          
+          <div style={{fontSize:'0.8rem', color:'#aaa', textAlign:'left'}}>
+            MANUAL SALE: <strong style={{color:'white'}}>{currentPlayer.name}</strong>
+          </div>
+
+          {/* 1. TEAM GRID (Logos) */}
+          <div className="mini-team-grid">
+             {/* Unsold Button */}
+             <button 
+               className={`mini-circle-btn unsold-btn ${manualTeam === 'Unsold' ? 'selected' : ''}`}
+               onClick={() => setManualTeam('Unsold')}
+               title="Mark Unsold"
+             >
+               ❌
+             </button>
+
+             {/* Connected Teams Only */}
+             {connectedTeams.filter(t => t !== "ADMIN").map(team => (
+               <button
+                 key={team}
+                 className={`mini-circle-btn ${manualTeam === team ? 'selected' : ''}`}
+                 onClick={() => setManualTeam(team)}
+                 title={team}
+               >
+                 <img src={TEAM_LOGOS[team]} alt={team} />
+               </button>
+             ))}
+          </div>
+
+          {/* 2. FEEDBACK LABEL */}
+          <div className="selected-team-label">
+            {manualTeam === 'Unsold' ? "🔴 MARKED UNSOLD" : (manualTeam ? `🟢 ${manualTeam} SELECTED` : "SELECT A TEAM")}
+          </div>
+
+          {/* 3. PRICE INPUT (Clean, No Spinners) */}
+          {manualTeam && manualTeam !== 'Unsold' && (
+             <div className="compact-price-row">
+                <span style={{color:'#d4af37', fontWeight:'bold'}}>₹</span>
+                <input 
+                   type="number" 
+                   className="no-spinner" 
+                   placeholder="Enter Amount" 
+                   value={manualPrice} 
+                   onChange={(e) => setManualPrice(e.target.value)}
+                   autoFocus
+                />
+                <span style={{color:'#d4af37', fontSize:'0.9rem', fontWeight:'bold'}}>Cr</span>
+             </div>
+          )}
+
+          {/* 4. CONFIRM BUTTON (Uses your logic function) */}
+          <button 
+             onClick={confirmManualSale}
+             disabled={!manualTeam || (manualTeam !== 'Unsold' && !manualPrice)}
+             style={{
+               marginTop: '10px',
+               width: '100%',
+               padding: '10px',
+               background: manualTeam ? '#d4af37' : '#333',
+               border: 'none',
+               borderRadius: '4px',
+               fontWeight: 'bold',
+               cursor: manualTeam ? 'pointer' : 'not-allowed',
+               color: manualTeam ? 'black' : '#555',
+               transition: 'background 0.2s'
+             }}
+          >
+             CONFIRM
+          </button>
+        </div>
+      )}
 
     </div>
+
+    
   );
 }
 

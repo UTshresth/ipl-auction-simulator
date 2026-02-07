@@ -1,0 +1,85 @@
+.squad-review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  background-color: #121212;
+  color: white;
+  text-align: center;
+}
+
+/* HEADER WITH PULSE */
+.review-header {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.pulse-icon {
+  font-size: 2rem;
+  animation: pulse 1.5s infinite;
+}
+.review-header h2 { margin: 0; color: #28a745; text-transform: uppercase; letter-spacing: 1px; }
+.review-header p { margin: 5px 0 0; color: #888; font-style: italic; }
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* TEAM SHEET CARD */
+.team-sheet {
+  background: linear-gradient(135deg, #1e1e1e, #252525);
+  width: 400px;
+  border-radius: 10px;
+  border: 1px solid #d4af37;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.sheet-header {
+  background: #d4af37;
+  color: black;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sheet-header h3 { margin: 0; font-weight: 800; font-size: 1.2rem; }
+.sheet-header span { font-size: 0.7rem; font-weight: bold; border: 1px solid black; padding: 2px 6px; border-radius: 4px; }
+
+.sheet-list {
+  padding: 10px 0;
+}
+
+.sheet-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-bottom: 1px solid #333;
+}
+.sheet-row:last-child { border-bottom: none; }
+
+.sheet-num { 
+  width: 25px; color: #888; font-weight: bold; font-family: monospace; font-size: 1.1rem; 
+}
+.sheet-name { 
+  flex: 1; text-align: left; font-weight: bold; font-size: 1rem; color: #eee;
+}
+.sheet-role { 
+  font-size: 0.75rem; color: #aaa; text-transform: uppercase; margin-right: 15px; 
+}
+.sheet-price { 
+  font-family: monospace; color: #d4af37; font-weight: bold;
+}
+.os-badge { font-size: 0.7rem; margin-left: 5px; }
+
+.sheet-footer {
+  background: #111;
+  padding: 10px;
+  font-size: 0.9rem;
+  color: #888;
+  border-top: 1px solid #333;
+}
