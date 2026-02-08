@@ -8,7 +8,7 @@
     "base_price": 20000000,
     "stats": {
       "matches": 267,
-      "runs": 8845,
+      "runs": 8661,
       "avg": 39.8,
       "sr": 133.5,
       "wickets": 0,
@@ -146,7 +146,7 @@
       "sr": 160,
       "wickets": 12,
       "economy": 8.8,
-      "hs": "75"
+      "hs": "140"
     },
     "set_name": "Uncapped / Emerging",
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/212.png"
@@ -265,25 +265,26 @@
     "set_name": "Batters Set 1",
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/11.png"
   },
-  {
+ {
     "id": "curr_15",
     "name": "Vaibhav Suryavanshi",
     "country": "India",
     "role": "Opener",
-    "specialism": "Youngest Player / Prodigy",
+    "specialism": "Youngest Centurion / Prodigy",
     "base_price": 2000000,
     "stats": {
-      "matches": 9,
-      "runs": 315,
-      "avg": 35.0,
-      "sr": 160.5,
+      "matches": 7,
+      "runs": 252,
+      "avg": 36.00,
+      "sr": 206.56,
       "wickets": 0,
-      "economy": 0,
-      "hs": "78"
+      "economy": 0.0,
+      "hs": "101"
     },
     "set_name": "Uncapped / Emerging",
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/1105.png"
   },
+  
   {
     "id": "curr_16",
     "name": "Devdutt Padikkal",
