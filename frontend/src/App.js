@@ -89,6 +89,7 @@ const [submittedTeams, setSubmittedTeams] = useState([]);
   const [pastPlayers, setPastPlayers] = useState([]);
 
   const currentPlayer = activeList[playerIndex];
+  
 
   const getIncrementLabel = () => {
     if (currentBid === 0) return "BASE PRICE";
@@ -901,10 +902,13 @@ const confirmManualSale = () => {
             )}
 
             <img 
+              // 👇 THIS IS THE FIX
+              key={currentPlayer.id} 
+              
               src={currentPlayer.image_url} 
               alt={currentPlayer.name} 
               className="stage-hero-image"
-              onError={handleImageError}
+              onError={(e) => handleImageError(e, currentPlayer.name)}
             />
 
            {/* Floating Stats Panel */}
