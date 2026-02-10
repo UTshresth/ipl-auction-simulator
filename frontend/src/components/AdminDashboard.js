@@ -1,11 +1,88 @@
 import React, { useState } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
-const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos, onGenerateReport }) => {
+const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos }) => {
   // Local state to track which team's squad we are currently viewing
   const [viewingSubmission, setViewingSubmission] = useState(null);
 
   // Filter out ADMIN from connected list
   const teams = connectedTeams.filter(t => t !== "ADMIN");
+
+  // --- 📄 PDF GENERATION LOGIC ---
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // 1. TITLE PAGE
+    doc.setFillColor(20, 20, 20); // Dark Background
+    doc.rect(0, 0, 210, 297, 'F'); // Fill Page
+    
+    doc.setTextColor(212, 175, 55); // Gold Text
+    doc.setFontSize(30);
+    doc.setFont("helvetica", "bold");
+    doc.text("IPL AUCTION 2026", 105, 120, null, null, "center");
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.text("OFFICIAL FINAL REPORT", 105, 135, null, null, "center");
+    
+    doc.setFontSize(10);
+    doc.setTextColor(150, 150, 150);
+    doc.text(`Generated on: ${new Date().toLocaleString()}`, 105, 150, null, null, "center");
+
+    // 2. TEAM PAGES
+    submittedTeams.forEach((team, index) => {
+      doc.addPage();
+      
+      // Header Background
+      doc.setFillColor(30, 30, 30);
+      doc.rect(0, 0, 210, 40, 'F');
+
+      // Team Title
+      doc.setTextColor(212, 175, 55); // Gold
+      doc.setFontSize(22);
+      doc.setFont("helvetica", "bold");
+      doc.text(team.teamName.toUpperCase(), 14, 25);
+
+      // Squad Count
+      doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
+      doc.text(`Squad Size: ${team.squad.length} Players`, 14, 35);
+
+      // PREPARE TABLE DATA
+      const tableBody = team.squad.map((p, i) => [
+        i + 1,
+        p.name,
+        p.role,
+        p.country,
+        p.soldPrice ? `Rs. ${(p.soldPrice / 10000000).toFixed(2)} Cr` : "Retained/Base"
+      ]);
+
+      // GENERATE TABLE
+      autoTable(doc, {
+        startY: 50,
+        head: [['#', 'Player Name', 'Role', 'Country', 'Price']],
+        body: tableBody,
+        theme: 'grid',
+        headStyles: { 
+          fillColor: [212, 175, 55], // Gold Header
+          textColor: [0, 0, 0],      // Black Text
+          fontStyle: 'bold'
+        },
+        alternateRowStyles: { fillColor: [245, 245, 245] },
+        styles: { fontSize: 10, cellPadding: 4 }
+      });
+
+      // FOOTER STATS (Optional calculation)
+      const totalSpent = team.squad.reduce((acc, p) => acc + (p.soldPrice || 0), 0);
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`Total Spent: Rs. ${(totalSpent / 10000000).toFixed(2)} Cr`, 14, doc.lastAutoTable.finalY + 10);
+    });
+
+    // 3. SAVE FILE
+    doc.save('IPL_Auction_2026_Report.pdf');
+  };
 
   return (
     <div style={{background:'#111', minHeight:'100vh', padding:'40px', color:'white', textAlign:'center'}}>
@@ -94,15 +171,16 @@ const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos, onGenerateR
       )}
 
       {/* GENERATE REPORT BUTTON */}
-      {submittedTeams.length === teams.length && (
+      {submittedTeams.length > 0 && (
         <button 
-          onClick={onGenerateReport}
+          onClick={generatePDF}
           style={{
-            background:'#d4af37', border:'none', padding:'15px 40px', 
-            fontSize:'1.2rem', fontWeight:'bold', cursor:'pointer', borderRadius:'8px', marginTop:'20px'
+            background:'#d4af37', border:'none', padding:'15px 40px', color:'black',
+            fontSize:'1.2rem', fontWeight:'bold', cursor:'pointer', borderRadius:'8px', marginTop:'20px',
+            boxShadow:'0 0 15px rgba(212, 175, 55, 0.5)'
           }}
         >
-          GENERATE FINAL REPORT 📄
+          📄 GENERATE FINAL REPORT
         </button>
       )}
     </div>
