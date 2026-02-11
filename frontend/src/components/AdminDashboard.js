@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos }) => {
+const AdminDashboard = ({roomId, socket,connectedTeams, submittedTeams, teamLogos }) => {
   // Local state to track which team's squad we are currently viewing
   const [viewingSubmission, setViewingSubmission] = useState(null);
 
@@ -82,6 +82,14 @@ const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos }) => {
 
     // 3. SAVE FILE
     doc.save('IPL_Auction_2026_Report.pdf');
+  };
+
+  const handleEvaluate = () => {
+    if (submittedTeams.length === 0) return alert("No teams have submitted yet!");
+    
+    // Send data to Node.js
+    socket.emit("admin_evaluate_teams", submittedTeams);
+    alert("🚀 Evaluation Started! Check the main screen.");
   };
 
   return (
@@ -181,6 +189,19 @@ const AdminDashboard = ({ connectedTeams, submittedTeams, teamLogos }) => {
           }}
         >
           📄 GENERATE FINAL REPORT
+        </button>
+      )}
+      {/* AI EVALUATION BUTTON */}
+      {submittedTeams.length > 0 && (
+        <button 
+          onClick={handleEvaluate}
+          style={{
+            background:'#28a745', border:'none', padding:'15px 40px', color:'white',
+            fontSize:'1.2rem', fontWeight:'bold', cursor:'pointer', borderRadius:'8px', marginTop:'20px',
+            boxShadow:'0 0 15px rgba(40, 167, 69, 0.5)'
+          }}
+        >
+          🤖 AI EVALUATE TEAMS
         </button>
       )}
     </div>
