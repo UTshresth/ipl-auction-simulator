@@ -430,6 +430,63 @@ let auctionMode = "online";
 
     io.to(roomId).emit("squad_submission_update", room.submittedSquads);
   });
+const axios = require('axios'); // Import at the top if not already there
+
+  // ... inside io.on('connection', (socket) => { ...
+
+ // --- 🏆 TARGETED AI EVALUATION ---
+  socket.on("admin_evaluate_teams", async (data) => {
+    // 1. Extract Room ID and Teams
+    // Support both old format (array) and new format (object) for safety
+    const roomId = data.roomId || null;
+    const teamsList = Array.isArray(data) ? data : data.teams;
+
+    if (!roomId) {
+        console.error("❌ Error: No Room ID provided for evaluation!");
+        return;
+    }
+
+    console.log(`👮‍♂️ Admin evaluating Room ${roomId}...`);
+    
+    try {
+      const results = [];
+
+      // 2. Loop through teams
+      for (const team of teamsList) {
+        const pythonPayload = {
+          teamName: team.teamName,
+          squad: team.squad.map(p => ({
+            name: p.name,
+            role: p.role,
+            country: p.country || "India", // Pass country for overseas check
+            avg: p.stats.avg || 0,
+            sr: p.stats.sr || 0,
+            wickets: p.stats.wickets || 0,
+            economy: p.stats.economy || 0,
+            matches: p.stats.matches || 1
+          }))
+        };
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/analyze_squad', pythonPayload);
+            results.push(response.data);
+        } catch (err) {
+            console.error(`⚠️ Python Error for ${team.teamName}:`, err.message);
+        }
+      }
+
+      results.sort((a, b) => b.team_rating - a.team_rating);
+
+      // 3. BROADCAST ONLY TO THIS ROOM 🎯
+      // Use 'io.to(roomId)' instead of 'io.emit'
+      io.to(roomId).emit("show_ai_results", results);
+      
+      console.log(`✅ AI Results sent ONLY to Room ${roomId}`);
+
+    } catch (error) {
+      console.error("❌ AI Engine Error:", error.message);
+    }
+  });
 
 }); // <--- End of io.on connection block
 // OLD:
