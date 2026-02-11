@@ -47,7 +47,8 @@ function App() {
   // NEW: Slider State
   // NEW: Rulebook State
   // Add this with your other state variables at the top of the App function
-
+const [aiResults, setAiResults] = useState(null); // Stores the ratings
+const [showAiModal, setShowAiModal] = useState(false);
   const [auctionMode, setAuctionMode] = useState("online"); // 'online' or 'offline'
 const [showManualModal, setShowManualModal] = useState(false); // For Admin Popup
 const [manualTeam, setManualTeam] = useState(""); // Selected winner in offline mode
@@ -202,7 +203,14 @@ const handleSquadSubmit = (selectedPlayers) => {
        setView("LOBBY");
     });
 // ... inside useEffect
+// Listen for AI Results from Server
+    // Inside useEffect in App.js
 
+    socket.on("show_ai_results", (data) => {
+      console.log("🔥 FRONTEND RECEIVED DATA:", data); // <--- ADD THIS LOG
+      setAiResults(data);
+      setShowAiModal(true);
+    });
 // 🆕 Listen for Mode Changes
 // 🆕 Listen for Mode Changes (FIXED)
     socket.on("mode_update", (data) => {
@@ -373,7 +381,9 @@ const handleSquadSubmit = (selectedPlayers) => {
         socket.off("player_result");
         socket.off("phase_change");          
         socket.off("update_player_list");    
-        socket.off("squad_submission_update"); 
+        socket.off("squad_submission_update");
+        // Listen for AI Results from Server
+    socket.off("show_ai_results");
         socket.off("mode_update")
     }
   }, [activeList, playerIndex, currentPlayer, teamName, isAdmin, roomId]);
@@ -692,6 +702,7 @@ const confirmManualSale = () => {
     if (isAdmin) {
       return (
         <AdminDashboard 
+        socket={socket}  // <--- ADD THIS LINE
           connectedTeams={connectedTeams}
           submittedTeams={submittedTeams} // Updates as teams submit
           teamLogos={TEAM_LOGOS}
@@ -1295,7 +1306,88 @@ const confirmManualSale = () => {
           </button>
         </div>
       )}
+      {/* 🏆 AI PREDICTION MODAL (Final Fix) */}
+      {showAiModal && aiResults && (
+        <div style={{
+           position: 'fixed', 
+           top: 0, 
+           left: 0, 
+           width: '100vw', 
+           height: '100vh',
+           backgroundColor: 'rgba(0, 0, 0, 0.95)', // Very dark background
+           zIndex: 10000, // <--- CRITICAL: High Z-Index ensures it is ON TOP
+           display: 'flex', 
+           justifyContent: 'center', 
+           alignItems: 'center'
+        }}>
+           <div style={{
+              background: '#121212', 
+              width: '90%', 
+              maxWidth: '600px', 
+              borderRadius: '15px',
+              border: '2px solid #FFD700', 
+              padding: '30px', 
+              textAlign: 'center',
+              boxShadow: '0 0 50px rgba(255, 215, 0, 0.5)',
+              color: 'white'
+           }}>
+              <h1 style={{color: '#FFD700', margin: '0 0 20px 0'}}>🤖 AI SQUAD RATINGS</h1>
+              
+              <div style={{maxHeight: '60vh', overflowY: 'auto'}}>
+                {aiResults.map((team, index) => (
+                  <div key={index} style={{
+                     background: '#1e1e1e', 
+                     marginBottom: '10px', 
+                     padding: '15px',
+                     borderRadius: '8px', 
+                     display: 'flex', 
+                     justifyContent: 'space-between',
+                     alignItems: 'center', 
+                     borderLeft: index === 0 ? '5px solid #0f0' : '5px solid #555'
+                  }}>
+                     <div style={{textAlign: 'left'}}>
+                        {/* MATCHING YOUR SCREENSHOT KEYS EXACTLY */}
+                        <h2 style={{margin:0, color: 'white', fontSize: '1.2rem'}}>
+                           #{index + 1} {team.team_name} 
+                        </h2>
+                        <span style={{fontSize: '0.8rem', color: '#888'}}>
+                           Random Forest Analysis
+                        </span>
+                     </div>
+                     
+                     <div style={{textAlign: 'right'}}>
+                        <div style={{
+                           fontSize: '1.8rem', 
+                           fontWeight: 'bold', 
+                           color: index === 0 ? '#0f0' : '#FFD700'
+                        }}>
+                           {team.team_rating}
+                        </div>
+                        <div style={{fontSize: '0.6rem', color: '#666'}}>STRENGTH</div>
+                     </div>
+                  </div>
+                ))}
+              </div>
 
+              <button 
+                onClick={() => setShowAiModal(false)}
+                style={{
+                  marginTop: '20px', 
+                  padding: '12px 35px', 
+                  background: '#d32f2f', 
+                  color: 'white', 
+                  border: 'none', 
+                  borderRadius: '8px', 
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '1rem'
+                }}
+              >
+                CLOSE REPORT
+              </button>
+           </div>
+        </div>
+      )}
     </div>
 
     
