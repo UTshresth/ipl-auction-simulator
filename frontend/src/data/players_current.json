@@ -1,22 +1,99 @@
-[
+
+  [
   {
-    "id": "curr_01",
-    "name": "Virat Kohli",
-    "country": "India",
+    "id": "curr_12",
+    "name": "Chris Gayle",
+    "country": "West Indies",
     "role": "Opener",
-    "specialism": "Anchor / Run Machine",
+    "specialism": "Universe Boss / Off-Spin",
     "base_price": 20000000,
     "stats": {
-      "matches": 267,
-      "runs": 8661,
-      "avg": 39.8,
-      "sr": 133.5,
+      "matches": 142,
+      "runs": 4965,
+      "avg": 39.7,
+      "sr": 148.9,
+      "wickets": 18,
+      "economy": 8.2,
+      "hs": "175*"
+    },
+    "set_name": "Legends",
+    "image_url": "https://documents.iplt20.com/playerheadshot/ipl/284/236.png"
+  },
+  {
+    "id": "curr_05",
+    "name": "David Warner",
+    "country": "Australia",
+    "role": "Opener",
+    "specialism": "Explosive / Captain Material",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 184,
+      "runs": 6565,
+      "avg": 40.5,
+      "sr": 139.8,
       "wickets": 0,
       "economy": 0,
-      "hs": "113*"
+      "hs": "126"
     },
     "set_name": "Marquee Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/2.png"
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/214.png"
+  },
+  {
+    "id": "curr_09",
+    "name": "Faf du Plessis",
+    "country": "South Africa",
+    "role": "Opener",
+    "specialism": "Captain Material / Fielder",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 140,
+      "runs": 4500,
+      "avg": 36.8,
+      "sr": 135.5,
+      "wickets": 0,
+      "economy": 0,
+      "hs": "96"
+    },
+    "set_name": "Batters Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png"
+  },
+  {
+    "id": "curr_10",
+    "name": "Jos Buttler",
+    "country": "England",
+    "role": "Opener",
+    "specialism": "360 Hitter / Wicket-Keeper",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 110,
+      "runs": 3800,
+      "avg": 39.5,
+      "sr": 145,
+      "wickets": 0,
+      "economy": 0,
+      "hs": "124"
+    },
+    "set_name": "Marquee Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/182.png"
+  },
+  {
+    "id": "curr_18",
+    "name": "Kane Williamson",
+    "country": "New Zealand",
+    "role": "Opener",
+    "specialism": "Anchor / Captain Material",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 78,
+      "runs": 2120,
+      "avg": 35.5,
+      "sr": 125,
+      "wickets": 0,
+      "economy": 0,
+      "hs": "89"
+    },
+    "set_name": "Batters Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/65.png"
   },
   {
     "id": "curr_02",
@@ -38,23 +115,23 @@
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/6.png"
   },
   {
-    "id": "curr_03",
-    "name": "Travis Head",
-    "country": "Australia",
+    "id": "curr_14",
+    "name": "Shikhar Dhawan",
+    "country": "India",
     "role": "Opener",
-    "specialism": "Aggressor / Part-time Spin",
+    "specialism": "Gabbar / Consistent",
     "base_price": 20000000,
     "stats": {
-      "matches": 25,
-      "runs": 950,
-      "avg": 42.5,
-      "sr": 195,
+      "matches": 222,
+      "runs": 6769,
+      "avg": 35.1,
+      "sr": 127.1,
       "wickets": 4,
-      "economy": 8.5,
-      "hs": "102"
+      "economy": 8.3,
+      "hs": "106*"
     },
     "set_name": "Batters Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/37.png"
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/11.png"
   },
   {
     "id": "curr_04",
@@ -76,23 +153,61 @@
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/62.png"
   },
   {
-    "id": "curr_05",
-    "name": "David Warner",
+    "id": "curr_03",
+    "name": "Travis Head",
     "country": "Australia",
     "role": "Opener",
-    "specialism": "Explosive / Captain Material",
+    "specialism": "Aggressor / Part-time Spin",
     "base_price": 20000000,
     "stats": {
-      "matches": 184,
-      "runs": 6565,
-      "avg": 40.5,
-      "sr": 139.8,
+      "matches": 25,
+      "runs": 950,
+      "avg": 42.5,
+      "sr": 195,
+      "wickets": 4,
+      "economy": 8.5,
+      "hs": "102"
+    },
+    "set_name": "Batters Set 1",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/37.png"
+  },
+  {
+    "id": "curr_01",
+    "name": "Virat Kohli",
+    "country": "India",
+    "role": "Opener",
+    "specialism": "Anchor / Run Machine",
+    "base_price": 20000000,
+    "stats": {
+      "matches": 267,
+      "runs": 8661,
+      "avg": 39.8,
+      "sr": 133.5,
       "wickets": 0,
       "economy": 0,
-      "hs": "126"
+      "hs": "113*"
     },
     "set_name": "Marquee Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/214.png"
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/2.png"
+  },
+  {
+    "id": "curr_19",
+    "name": "Phil Salt",
+    "country": "England",
+    "role": "Opener",
+    "specialism": "Aggressive / Wicket-Keeper",
+    "base_price": 15000000,
+    "stats": {
+      "matches": 21,
+      "runs": 650,
+      "avg": 34.2,
+      "sr": 165,
+      "wickets": 0,
+      "economy": 0,
+      "hs": "89*"
+    },
+    "set_name": "Batters Set 2",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/1220.png"
   },
   {
     "id": "curr_06",
@@ -152,82 +267,6 @@
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/212.png"
   },
   {
-    "id": "curr_09",
-    "name": "Faf du Plessis",
-    "country": "South Africa",
-    "role": "Opener",
-    "specialism": "Captain Material / Fielder",
-    "base_price": 20000000,
-    "stats": {
-      "matches": 140,
-      "runs": 4500,
-      "avg": 36.8,
-      "sr": 135.5,
-      "wickets": 0,
-      "economy": 0,
-      "hs": "96"
-    },
-    "set_name": "Batters Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png"
-  },
-  {
-    "id": "curr_10",
-    "name": "Jos Buttler",
-    "country": "England",
-    "role": "Opener",
-    "specialism": "360 Hitter / Wicket-Keeper",
-    "base_price": 20000000,
-    "stats": {
-      "matches": 110,
-      "runs": 3800,
-      "avg": 39.5,
-      "sr": 145,
-      "wickets": 0,
-      "economy": 0,
-      "hs": "124"
-    },
-    "set_name": "Marquee Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/182.png"
-  },
-  {
-    "id": "curr_11",
-    "name": "Sai Sudharsan",
-    "country": "India",
-    "role": "Opener",
-    "specialism": "Technique / Accumulator",
-    "base_price": 5000000,
-    "stats": {
-      "matches": 25,
-      "runs": 1050,
-      "avg": 48.5,
-      "sr": 140,
-      "wickets": 0,
-      "economy": 0,
-      "hs": "103"
-    },
-    "set_name": "Uncapped / Emerging",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/976.png"
-  },
-  {
-    "id": "curr_12",
-    "name": "Chris Gayle",
-    "country": "West Indies",
-    "role": "Opener",
-    "specialism": "Universe Boss / Off-Spin",
-    "base_price": 20000000,
-    "stats": {
-      "matches": 142,
-      "runs": 4965,
-      "avg": 39.7,
-      "sr": 148.9,
-      "wickets": 18,
-      "economy": 8.2,
-      "hs": "175*"
-    },
-    "set_name": "Legends",
-    "image_url": "https://documents.iplt20.com/playerheadshot/ipl/284/236.png"
-  },
-  {
     "id": "curr_13",
     "name": "Brendon McCullum",
     "country": "New Zealand",
@@ -247,45 +286,6 @@
     "image_url": "https://documents.iplt20.com/playerheadshot/ipl/284/202.png"
   },
   {
-    "id": "curr_14",
-    "name": "Shikhar Dhawan",
-    "country": "India",
-    "role": "Opener",
-    "specialism": "Gabbar / Consistent",
-    "base_price": 20000000,
-    "stats": {
-      "matches": 222,
-      "runs": 6769,
-      "avg": 35.1,
-      "sr": 127.1,
-      "wickets": 4,
-      "economy": 8.3,
-      "hs": "106*"
-    },
-    "set_name": "Batters Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/11.png"
-  },
- {
-    "id": "curr_15",
-    "name": "Vaibhav Suryavanshi",
-    "country": "India",
-    "role": "Opener",
-    "specialism": "Youngest Centurion / Prodigy",
-    "base_price": 2000000,
-    "stats": {
-      "matches": 7,
-      "runs": 252,
-      "avg": 36.00,
-      "sr": 206.56,
-      "wickets": 0,
-      "economy": 0.0,
-      "hs": "101"
-    },
-    "set_name": "Uncapped / Emerging",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/3498.png"
-  },
-  
-  {
     "id": "curr_16",
     "name": "Devdutt Padikkal",
     "country": "India",
@@ -303,6 +303,25 @@
     },
     "set_name": "Batters Set 2",
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/200.png"
+  },
+  {
+    "id": "curr_20",
+    "name": "Mayank Agarwal",
+    "country": "India",
+    "role": "Opener",
+    "specialism": "Reliable Starter",
+    "base_price": 5000000,
+    "stats": {
+      "matches": 125,
+      "runs": 2650,
+      "avg": 23.5,
+      "sr": 130,
+      "wickets": 0,
+      "economy": 0,
+      "hs": "106"
+    },
+    "set_name": "Batters Set 2",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/55.png"
   },
   {
     "id": "curr_17",
@@ -324,62 +343,44 @@
     "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/51.png"
   },
   {
-    "id": "curr_18",
-    "name": "Kane Williamson",
-    "country": "New Zealand",
-    "role": "Opener",
-    "specialism": "Anchor / Captain Material",
-    "base_price": 20000000,
-    "stats": {
-      "matches": 78,
-      "runs": 2120,
-      "avg": 35.5,
-      "sr": 125,
-      "wickets": 0,
-      "economy": 0,
-      "hs": "89"
-    },
-    "set_name": "Batters Set 1",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/65.png"
-  },
-  {
-    "id": "curr_19",
-    "name": "Phil Salt",
-    "country": "England",
-    "role": "Opener",
-    "specialism": "Aggressive / Wicket-Keeper",
-    "base_price": 15000000,
-    "stats": {
-      "matches": 21,
-      "runs": 650,
-      "avg": 34.2,
-      "sr": 165,
-      "wickets": 0,
-      "economy": 0,
-      "hs": "89*"
-    },
-    "set_name": "Batters Set 2",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/1220.png"
-  },
-  {
-    "id": "curr_20",
-    "name": "Mayank Agarwal",
+    "id": "curr_11",
+    "name": "Sai Sudharsan",
     "country": "India",
     "role": "Opener",
-    "specialism": "Reliable Starter",
+    "specialism": "Technique / Accumulator",
     "base_price": 5000000,
     "stats": {
-      "matches": 125,
-      "runs": 2650,
-      "avg": 23.5,
-      "sr": 130,
+      "matches": 25,
+      "runs": 1050,
+      "avg": 48.5,
+      "sr": 140,
       "wickets": 0,
       "economy": 0,
-      "hs": "106"
+      "hs": "103"
     },
-    "set_name": "Batters Set 2",
-    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2024/55.png"
+    "set_name": "Uncapped / Emerging",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/976.png"
   },
+  {
+    "id": "curr_15",
+    "name": "Vaibhav Suryavanshi",
+    "country": "India",
+    "role": "Opener",
+    "specialism": "Youngest Centurion / Prodigy",
+    "base_price": 2000000,
+    "stats": {
+      "matches": 7,
+      "runs": 252,
+      "avg": 36.00,
+      "sr": 206.56,
+      "wickets": 0,
+      "economy": 0.0,
+      "hs": "101"
+    },
+    "set_name": "Uncapped / Emerging",
+    "image_url": "https://documents.iplt20.com/ipl/IPLHeadshot2025/3498.png"
+  }
+,
   
  
   
